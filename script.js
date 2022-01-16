@@ -6,33 +6,7 @@ const condicao = document.querySelector('#status');
 const listaPersonagens = [];
 const itemAtual = '';
 
-traduzirCondicao = (data) => {
-    if(data.status == 'unknown'){
-        return 'Não sabemos';
-    }else if(data.status == 'Alive'){
-        return 'Sim';
-    }else {
-        return 'Não. Está morto';
-    }
-}
-
-traduzirEspecie = (data) => {
-    if(data.species == 'Human') {
-        return 'Humano';
-    } else if (data.species == 'Humanoid') {
-        return 'Humanóide';
-    } else if (data.species == 'unknown') {
-        return 'Desconhecida';
-    } else if (data.species == 'Alien') {
-        return 'Alienígena'; 
-    } else if (data.species == 'Mythological Creature') { 
-        return 'Criatura mitológica';
-    } else if (data.species == 'Robot') { 
-        return 'Robô';
-    }else {
-        return data.species;
-    }
-}
+botao.onclick = navegarPersonagens;
 
 buscarPersonagem = () => {
     let numerosAleatorios = this.gerarIdsAleatorios();
@@ -49,6 +23,15 @@ buscarPersonagem = () => {
         // Atribuindo na lista de personagem 
         this.listaPersonagens = data;
     });
+}
+
+carregarPersonagemNoHtml = (data) => {
+    this.itemAtual = data.name;
+    imagem.src = data.image;
+    imagem.alt = data.name;
+    nomeDoPersonagem.innerHTML = data.name;
+    especie.innerHTML = traduzirEspecie(data);
+    condicao.innerHTML = traduzirCondicao(data);
 }
 
 gerarIdsAleatorios = () => {
@@ -78,13 +61,30 @@ navegarPersonagens = () => {
     }
 }
 
-botao.onclick = navegarPersonagens;
+traduzirCondicao = (data) => {
+    if(data.status == 'unknown'){
+        return 'Não sabemos';
+    }else if(data.status == 'Alive'){
+        return 'Sim';
+    }else {
+        return 'Não. Está morto';
+    }
+}
 
-carregarPersonagemNoHtml = (data) => {
-    this.itemAtual = data.name;
-    imagem.src = data.image;
-    imagem.alt = data.name;
-    nomeDoPersonagem.innerHTML = data.name;
-    especie.innerHTML = traduzirEspecie(data);
-    condicao.innerHTML = traduzirCondicao(data);
+traduzirEspecie = (data) => {
+    if(data.species == 'Human') {
+        return 'Humano';
+    } else if (data.species == 'Humanoid') {
+        return 'Humanóide';
+    } else if (data.species == 'unknown') {
+        return 'Desconhecida';
+    } else if (data.species == 'Alien') {
+        return 'Alienígena'; 
+    } else if (data.species == 'Mythological Creature') { 
+        return 'Criatura mitológica';
+    } else if (data.species == 'Robot') { 
+        return 'Robô';
+    }else {
+        return data.species;
+    }
 }
