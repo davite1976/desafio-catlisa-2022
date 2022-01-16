@@ -13,3 +13,15 @@ traduzirCondicao = (data) => {
         return 'Não. Está morto';
     }
 }
+
+traduzirEspecie = (data) => {
+    if(data.species == 'Human') {
+        return 'Humano';
+    } else if (data.species == 'Humanoid') {
+        return 'Humanóide';
+    } else if (data.species == 'unknown') {
+        return 'Desconhecida';
+    } else {
+        return data.species;
+    }
+}
