@@ -6,8 +6,6 @@ const condicao = document.querySelector('#status');
 const listaPersonagens = [];
 const itemAtual = '';
 
-botao.onclick = navegarPersonagens;
-
 buscarPersonagem = () => {
     let numerosAleatorios = this.gerarIdsAleatorios();
     return fetch(`https://rickandmortyapi.com/api/character/${numerosAleatorios[0]},${numerosAleatorios[1]},${numerosAleatorios[2]}`, {
@@ -88,3 +86,5 @@ traduzirEspecie = (data) => {
         return data.species;
     }
 }
+
+botao.onclick = navegarPersonagens;
