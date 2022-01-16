@@ -3,6 +3,7 @@ const botao = document.querySelector('button');
 const nomeDoPersonagem = document.querySelector('#nome');
 const especie = document.querySelector('#especie');
 const condicao = document.querySelector('#status');
+const listaPersonagens = [];
 
 traduzirCondicao = (data) => {
     if(data.status == 'unknown'){
@@ -41,4 +42,12 @@ buscarPersonagem = () => {
         especie.innerHTML = traduzirEspecie(data);
         condicao.innerHTML = traduzirCondicao(data);
     });
+}
+
+gerarIdsAleatorios = () => {
+    const ids = [];
+    ids[0] = Math.floor(Math.random() * 671);
+    ids[1] = Math.floor(Math.random() * 671);
+    ids[2] = Math.floor(Math.random() * 671); 
+    return ids; 
 }
