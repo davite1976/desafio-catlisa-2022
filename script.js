@@ -25,7 +25,11 @@ traduzirEspecie = (data) => {
         return 'Desconhecida';
     } else if (data.species == 'Alien') {
         return 'Alienígena'; 
-    } else {
+    } else if (data.species == 'Mythological Creature') { 
+        return 'Criatura mitológica';
+    } else if (data.species == 'Robot') { 
+        return 'Robô';
+    }else {
         return data.species;
     }
 }
