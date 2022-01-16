@@ -4,6 +4,7 @@ const nomeDoPersonagem = document.querySelector('#nome');
 const especie = document.querySelector('#especie');
 const condicao = document.querySelector('#status');
 const listaPersonagens = [];
+const itemAtual = '';
 
 traduzirCondicao = (data) => {
     if(data.status == 'unknown'){
@@ -39,11 +40,7 @@ buscarPersonagem = () => {
         }
     }).then((response) => response.json()).then((data) => {
         // Ao Iniciar a pagina ira trazer 3 personagens aleatorios e carregar o 1 no html
-        imagem.src = data[0].image;
-        imagem.alt = data[0].name;
-        nomeDoPersonagem.innerHTML = data[0].name;
-        especie.innerHTML = traduzirEspecie(data[0]);
-        condicao.innerHTML = traduzirCondicao(data[0]);
+        carregarPersonagemNoHtml(data[0]);
 
         // Atribuindo na lista de personagem 
         this.listaPersonagens = data;
@@ -60,12 +57,30 @@ gerarIdsAleatorios = () => {
 
 navegarPersonagens = () => {
     // Ja buscou os personagens?
-    if (listaPersonagens.length == 0) {
+    if (this.listaPersonagens == undefined || this.listaPersonagens.length == 0) {
         buscarPersonagem();
     } else {
-        // senao navegar na lista
-        
+        // Navegar na lista
+        // Descobrir posição do item que ja esta sendo exibido
+        const posicao = this.listaPersonagens.findIndex(x => x.name == this.itemAtual);
+
+        // Validar se eh o ultimo item
+        if ((posicao + 1) == this.listaPersonagens.length) {
+            carregarPersonagemNoHtml(this.listaPersonagens[0]);
+        } else {
+            // senao ir para proximo da lista
+            carregarPersonagemNoHtml(this.listaPersonagens[posicao + 1]);
+        }
     }
 }
 
 botao.onclick = navegarPersonagens;
+
+carregarPersonagemNoHtml = (data) => {
+    this.itemAtual = data.name;
+    imagem.src = data.image;
+    imagem.alt = data.name;
+    nomeDoPersonagem.innerHTML = data.name;
+    especie.innerHTML = traduzirEspecie(data);
+    condicao.innerHTML = traduzirCondicao(data);
+}
