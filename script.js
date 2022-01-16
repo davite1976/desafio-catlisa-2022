@@ -22,25 +22,31 @@ traduzirEspecie = (data) => {
         return 'Humanóide';
     } else if (data.species == 'unknown') {
         return 'Desconhecida';
+    } else if (data.species == 'Alien') {
+        return 'Alienígena'; 
     } else {
         return data.species;
     }
 }
 
 buscarPersonagem = () => {
-    let numeroAleatorio = 1;
-    return fetch(`https://rickandmortyapi.com/api/character/${numeroAleatorio}`, {
+    let numerosAleatorios = this.gerarIdsAleatorios();
+    return fetch(`https://rickandmortyapi.com/api/character/${numerosAleatorios[0]},${numerosAleatorios[1]},${numerosAleatorios[2]}`, {
         method:'GET',
         headers: {
             Accept: 'application/json',
             "Content-type": 'application/json'
         }
     }).then((response) => response.json()).then((data) => {
-        imagem.src = data.image;
-        imagem.alt = data.name;
-        nomeDoPersonagem.innerHTML = data.name;
-        especie.innerHTML = traduzirEspecie(data);
-        condicao.innerHTML = traduzirCondicao(data);
+        // Ao Iniciar a pagina ira trazer 3 personagens aleatorios e carregar o 1 no html
+        imagem.src = data[0].image;
+        imagem.alt = data[0].name;
+        nomeDoPersonagem.innerHTML = data[0].name;
+        especie.innerHTML = traduzirEspecie(data[0]);
+        condicao.innerHTML = traduzirCondicao(data[0]);
+
+        // Atribuindo na lista de personagem 
+        this.listaPersonagens = data;
     });
 }
 
@@ -51,3 +57,15 @@ gerarIdsAleatorios = () => {
     ids[2] = Math.floor(Math.random() * 671); 
     return ids; 
 }
+
+navegarPersonagens = () => {
+    // Ja buscou os personagens?
+    if (listaPersonagens.length == 0) {
+        buscarPersonagem();
+    } else {
+        // senao navegar na lista
+        
+    }
+}
+
+botao.onclick = navegarPersonagens;
